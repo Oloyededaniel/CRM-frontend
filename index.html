@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Customers</title>
+    <link rel="stylesheet" href="styles.css?v=17" />
+  </head>
+  <body>
+    <div class="page">
+      <section id="auth" class="auth-wrap">
+        <div class="panel auth-card">
+          <p class="eyebrow">Company records</p>
+          <h1 id="auth-title">Welcome</h1>
+          <p class="lede" id="auth-lede">Enter your email. A 6-digit code is sent to that address and stays valid for 15 minutes.</p>
+          <div class="auth-switch" id="auth-switch" role="tablist">
+            <button type="button" id="show-sign-in" class="active" role="tab" aria-selected="true">Sign in</button>
+            <button type="button" id="show-create" role="tab" aria-selected="false">Create account</button>
+          </div>
+          <form id="sign-in-form">
+            <label class="stack" for="sign-email">
+              <span>Email</span>
+              <input id="sign-email" type="text" inputmode="email" maxlength="120" autocomplete="username" spellcheck="false" placeholder="name@company.com" />
+            </label>
+            <label class="stack" for="sign-password">
+              <span>Password</span>
+              <input id="sign-password" type="password" maxlength="200" autocomplete="current-password" />
+            </label>
+            <button type="submit" class="primary" id="sign-in-button">Continue</button>
+          </form>
+          <form id="create-form" hidden>
+            <label class="stack" for="create-name">
+              <span>Your name</span>
+              <input id="create-name" maxlength="80" autocomplete="name" />
+            </label>
+            <label class="stack" for="create-email">
+              <span>Email</span>
+              <input id="create-email" type="text" inputmode="email" maxlength="120" autocomplete="username" spellcheck="false" placeholder="name@company.com or name@company.co.uk" aria-describedby="create-email-checks" />
+              <ul id="create-email-checks" class="checks" hidden></ul>
+            </label>
+            <label class="stack" for="create-password">
+              <span>Password</span>
+              <input id="create-password" type="password" maxlength="200" autocomplete="new-password" />
+            </label>
+            <label class="stack" for="create-confirm">
+              <span>Confirm password</span>
+              <input id="create-confirm" type="password" maxlength="200" autocomplete="new-password" />
+            </label>
+            <button type="submit" class="primary" id="create-button">Continue</button>
+          </form>
+          <form id="code-form" class="otp-form" hidden>
+            <div class="otp-badge" aria-hidden="true"><span>OTP</span></div>
+            <h2>Verify OTP</h2>
+            <p id="code-copy" class="lede">Enter the 6-digit code sent to your email. It is valid for 15 minutes.</p>
+            <div class="otp-boxes" id="otp-boxes">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code" />
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 2" />
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 3" />
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 4" />
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 5" />
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="Digit 6" />
+            </div>
+            <p class="otp-resend">Didn't receive code? <button type="button" id="code-resend">Resend OTP</button></p>
+            <button type="submit" class="primary" id="code-button">Verify OTP</button>
+            <button type="button" class="otp-back" id="code-back">Back</button>
+          </form>
+          <form id="logo-form" hidden>
+            <label class="logo-drop" id="create-drop">
+              <input id="create-logo" class="logo-drop-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+              <span class="logo-drop-stage">
+                <img id="preview-logo" class="logo-drop-image" alt="" hidden />
+                <span class="logo-drop-empty" id="preview-mark">
+                  <svg viewBox="0 0 48 48" aria-hidden="true">
+                    <rect x="7" y="10" width="34" height="28" rx="6"></rect>
+                    <circle cx="18" cy="20" r="3"></circle>
+                    <path d="M10 33l9-9 6 6 4-4 9 7"></path>
+                  </svg>
+                </span>
+              </span>
+              <span class="logo-drop-copy">
+                <strong><span class="when-empty">Upload logo</span><span class="when-set">Replace logo</span></strong>
+                <span>Drop an image here, or browse. PNG, JPEG, WEBP, or GIF under 1.5 MB.</span>
+              </span>
+            </label>
+            <div class="home-preview" aria-label="Home page preview">
+              <img id="home-preview-logo" class="brand-logo" alt="Logo preview" hidden />
+              <div class="mark" id="home-preview-mark" aria-hidden="true"></div>
+              <div>
+                <p class="eyebrow" id="preview-name">Company records</p>
+                <h2>Customers</h2>
+                <p class="lede">Add the people and companies you work with, then update their phone, email, and notes.</p>
+              </div>
+            </div>
+            <button type="submit" class="primary" id="logo-button">Continue</button>
+          </form>
+          <p id="auth-status" class="meta" role="status"></p>
+        </div>
+      </section>
+      <div id="workspace" hidden>
+      <header class="masthead">
+        <button type="button" class="logo-button" id="open-profile" aria-label="Open your profile">
+          <img id="brand-logo" class="brand-logo" alt="" hidden />
+          <div class="mark" id="brand-mark" aria-hidden="true"></div>
+        </button>
+        <div class="masthead-copy">
+          <p class="eyebrow" id="brand-name">Company records</p>
+          <h1>Customers</h1>
+          <p class="lede">
+            Add the people and companies you work with, then update their phone, email, and notes.
+            These records stay on this computer.
+          </p>
+        </div>
+        <div class="mast-actions">
+          <button type="button" class="ghost" id="open-connections">Connections</button>
+          <button type="button" class="ghost" id="sign-out">Sign out</button>
+        </div>
+      </header>
+
+      <section class="panel" id="profile" hidden>
+        <div class="profile-head">
+          <div>
+            <p class="eyebrow">Your profile</p>
+            <h2 id="profile-name">Company records</h2>
+            <p id="profile-email"></p>
+          </div>
+        </div>
+        <form id="profile-form">
+          <label class="logo-drop" id="profile-drop">
+            <input id="profile-file" class="logo-drop-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+            <span class="logo-drop-stage">
+              <img id="profile-logo" class="logo-drop-image" alt="" hidden />
+              <span class="logo-drop-empty" id="profile-mark">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <rect x="7" y="10" width="34" height="28" rx="6"></rect>
+                  <circle cx="18" cy="20" r="3"></circle>
+                  <path d="M10 33l9-9 6 6 4-4 9 7"></path>
+                </svg>
+              </span>
+            </span>
+            <span class="logo-drop-copy">
+              <strong><span class="when-empty">Update logo</span><span class="when-set">Replace logo</span></strong>
+              <span>Drop a new image here, or browse. PNG, JPEG, WEBP, or GIF under 1.5 MB.</span>
+            </span>
+          </label>
+          <div class="action-buttons">
+            <button type="submit" class="primary" id="profile-save">Update logo</button>
+            <button type="button" class="ghost" id="profile-back">Back to customers</button>
+          </div>
+          <p id="profile-status" class="meta" role="status"></p>
+        </form>
+      </section>
+
+      <section class="panel" id="connections" hidden>
+        <div class="panel-head">
+          <h2>Connections</h2>
+          <p>Save the client ID, tenant, and keys for the systems that already hold your customers. Import brings those customers into this list. A new customer saved here can be created in the systems you tick.</p>
+        </div>
+        <div id="connection-list" class="connect-grid"></div>
+        <button type="button" class="ghost" id="connections-back">Back to customers</button>
+        <p id="connections-status" class="meta" role="status"></p>
+      </section>
+
+      <section class="panel" id="records" aria-labelledby="list-title">
+        <div class="list-bar">
+          <div>
+            <h2 id="list-title">Customer list</h2>
+            <p id="count" class="meta">No customers yet</p>
+          </div>
+          <div class="list-tools">
+            <input id="search" type="search" placeholder="Search owner, company, industry, email, or phone" aria-label="Search customers" />
+            <button type="button" class="primary" id="add-button">Add customer</button>
+          </div>
+        </div>
+        <div id="list" class="customer-list"></div>
+      </section>
+
+      <section class="panel editor" id="editor" hidden>
+        <div class="panel-head">
+          <h2 id="editor-title">New customer</h2>
+          <p id="editor-copy">Enter the details the company needs to reach this customer.</p>
+        </div>
+        <div id="record-choices" class="record-choices" hidden>
+          <p>What do you want to change?</p>
+          <div class="choice-row">
+            <button type="button" data-mode="company">Update company information</button>
+            <button type="button" data-mode="owner">Update owner</button>
+            <button type="button" data-mode="industry">Update industry</button>
+            <button type="button" data-mode="add-employee">Add employees</button>
+            <button type="button" data-mode="update-employee">Update employees</button>
+          </div>
+        </div>
+        <button type="button" class="text-button" id="choice-back" hidden>Back to choices</button>
+        <form id="customer-form" novalidate>
+          <div class="fields" id="company-fields">
+            <label class="stack" for="name">
+              <span>Owner</span>
+              <input id="name" name="name" required maxlength="120" autocomplete="name" />
+            </label>
+            <label class="stack" for="company">
+              <span>Company</span>
+              <input id="company" name="company" maxlength="120" autocomplete="off" />
+            </label>
+            <label class="stack" for="industry">
+              <span>Industry</span>
+              <select id="industry" name="industry">
+                <option value="">Select an industry</option>
+                <option>Technology</option>
+                <option>Financial services</option>
+                <option>Healthcare</option>
+                <option>Manufacturing</option>
+                <option>Retail</option>
+                <option>Professional services</option>
+                <option>Construction</option>
+                <option>Energy</option>
+                <option>Transportation</option>
+                <option>Aviation</option>
+                <option>Hospitality</option>
+                <option>Education</option>
+                <option>Real estate</option>
+                <option>Telecommunications</option>
+                <option>Agriculture</option>
+                <option>Government</option>
+                <option>Nonprofit</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label class="stack" for="email">
+              <span>Email</span>
+              <input id="email" name="email" type="text" inputmode="email" maxlength="120" autocomplete="email" spellcheck="false" placeholder="name@company.com or name@company.co.uk" aria-describedby="email-checks" />
+              <ul id="email-checks" class="checks" hidden></ul>
+            </label>
+            <label class="stack" for="country-code">
+              <span>Country code</span>
+              <select id="country-code" name="countryCode">
+                <option value="GB:+44">United Kingdom +44</option>
+                <option value="US:+1">United States +1</option>
+                <option value="CA:+1">Canada +1</option>
+                <option value="IE:+353">Ireland +353</option>
+                <option value="NG:+234">Nigeria +234</option>
+                <option value="GH:+233">Ghana +233</option>
+                <option value="KE:+254">Kenya +254</option>
+                <option value="ZA:+27">South Africa +27</option>
+                <option value="FR:+33">France +33</option>
+                <option value="DE:+49">Germany +49</option>
+                <option value="NL:+31">Netherlands +31</option>
+                <option value="ES:+34">Spain +34</option>
+                <option value="IT:+39">Italy +39</option>
+                <option value="AE:+971">United Arab Emirates +971</option>
+                <option value="IN:+91">India +91</option>
+                <option value="AU:+61">Australia +61</option>
+                <option value="NZ:+64">New Zealand +64</option>
+              </select>
+            </label>
+            <label class="stack" for="phone">
+              <span>Phone</span>
+              <input id="phone" name="phone" inputmode="numeric" maxlength="15" autocomplete="off" placeholder="Numbers only" />
+            </label>
+            <label class="stack field wide" for="address">
+              <span>Address</span>
+              <div class="place-field">
+                <input id="address" name="address" maxlength="200" autocomplete="off" placeholder="Start typing a street, city, or postcode" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="place-list" />
+                <ul id="place-list" class="place-list" hidden></ul>
+              </div>
+            </label>
+            <label class="stack" for="status">
+              <span>Status</span>
+              <select id="status" name="status">
+                <option>Lead</option>
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </label>
+            <label class="stack field wide" for="notes">
+              <span>Notes</span>
+              <textarea id="notes" name="notes" rows="4" maxlength="2000"></textarea>
+            </label>
+          </div>
+          <section class="employees" aria-labelledby="employees-title">
+            <div class="employees-head">
+              <h3 id="employees-title">Employees</h3>
+              <p>Add each person at this company. Choose email or phone, then add another. The list is saved with the customer.</p>
+            </div>
+            <div id="employee-list" class="employee-list"></div>
+            <div class="employee-add" id="employee-form">
+              <label class="stack" for="employee-name">
+                <span>Employee name</span>
+                <input id="employee-name" maxlength="120" autocomplete="off" />
+              </label>
+              <label class="stack" for="employee-role">
+                <span>Role</span>
+                <select id="employee-role">
+                  <option>HOD</option>
+                  <option>Director/Board</option>
+                  <option>Employee Level 1</option>
+                  <option>Employee Level 2</option>
+                  <option>Employee Level 3</option>
+                  <option>MD/CEO</option>
+                  <option>CFO/COO/CTO</option>
+                  <option>Founder</option>
+                </select>
+              </label>
+              <label class="stack" for="employee-permission">
+                <span>Permission</span>
+                <select id="employee-permission">
+                  <option>Read</option>
+                  <option>User</option>
+                  <option>Admin</option>
+                  <option>Super Admin / Supervisor</option>
+                </select>
+              </label>
+              <label class="stack" for="employee-contact">
+                <span>Contact</span>
+                <select id="employee-contact">
+                  <option value="email">Email</option>
+                  <option value="phone">Phone</option>
+                </select>
+              </label>
+              <div id="employee-email-wrap">
+                <label class="stack" for="employee-email">
+                  <span>Email</span>
+                  <input id="employee-email" type="text" inputmode="email" maxlength="120" autocomplete="off" spellcheck="false" placeholder="name@company.com or name@company.co.uk" aria-describedby="employee-email-checks" />
+                </label>
+                <ul id="employee-email-checks" class="checks" hidden></ul>
+              </div>
+              <div id="employee-phone-wrap" hidden>
+                <div class="employee-phone-fields">
+                  <label class="stack" for="employee-country">
+                    <span>Country code</span>
+                    <select id="employee-country">
+                      <option value="GB:+44">United Kingdom +44</option>
+                      <option value="US:+1">United States +1</option>
+                      <option value="CA:+1">Canada +1</option>
+                      <option value="IE:+353">Ireland +353</option>
+                      <option value="NG:+234">Nigeria +234</option>
+                      <option value="GH:+233">Ghana +233</option>
+                      <option value="KE:+254">Kenya +254</option>
+                      <option value="ZA:+27">South Africa +27</option>
+                      <option value="FR:+33">France +33</option>
+                      <option value="DE:+49">Germany +49</option>
+                      <option value="NL:+31">Netherlands +31</option>
+                      <option value="ES:+34">Spain +34</option>
+                      <option value="IT:+39">Italy +39</option>
+                      <option value="AE:+971">United Arab Emirates +971</option>
+                      <option value="IN:+91">India +91</option>
+                      <option value="AU:+61">Australia +61</option>
+                      <option value="NZ:+64">New Zealand +64</option>
+                    </select>
+                  </label>
+                  <label class="stack" for="employee-phone">
+                    <span>Phone</span>
+                    <input id="employee-phone" inputmode="numeric" maxlength="15" autocomplete="off" placeholder="Numbers only" />
+                  </label>
+                </div>
+              </div>
+              <div class="employee-actions">
+                <button type="button" class="ghost" id="add-employee">Add employee</button>
+                <button type="button" class="ghost" id="cancel-employee" hidden>Cancel</button>
+              </div>
+            </div>
+          </section>
+          <fieldset class="share-with" id="share-with" hidden>
+            <legend>Also create this customer in</legend>
+            <div id="share-list" class="share-list"></div>
+          </fieldset>
+          <div class="actions form-actions">
+            <p id="form-status" class="meta"></p>
+            <div class="action-buttons">
+              <button type="submit" class="primary" id="save-button">Save customer</button>
+              <button type="button" class="ghost" id="cancel-button">Cancel</button>
+              <button type="button" class="danger-text" id="delete-button" hidden>Delete</button>
+            </div>
+          </div>
+        </form>
+      </section>
+      </div>
+    </div>
+    <script src="app.js?v=29"></script>
+  </body>
+</html>
